@@ -15,7 +15,7 @@ namespace SeleniumTest
             Console.WriteLine("We scrapin' bruh!");
 
             IWebElement username = driver.FindElement(By.Name("username"));
-            username.SendKeys("mikeishere3@intracitygeeks.org");
+            username.SendKeys("mikeishere3@intracitygeeks.org"); 
             username.Submit();
 
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
