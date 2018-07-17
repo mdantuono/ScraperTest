@@ -32,30 +32,26 @@ namespace SeleniumTest
             driver.Navigate().GoToUrl("https://finance.yahoo.com/portfolio/p_0/view/v1");
 
             // Wait for tr elements to load
-            wait.Until(d => driver.FindElements(By.TagName("tr")));
+            wait.Until(d => driver.FindElement(By.TagName("tbody")));
 
+            // Get a count of the stocks in the list
             int count;
-            System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> list = driver.FindElements(By.TagName("tr"));
-            count = list.Count;
-            //foreach (IWebElement row in list)
-            //{
-            //    count++;
-            //}
+            IWebElement list = driver.FindElement(By.TagName("tbody"));
+            System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> items = list.FindElements(By.TagName("tr"));
+            count = items.Count;
 
-            Console.WriteLine("There are " + count + " stocks in the list");
+            Console.WriteLine("\nThere are " + count + " stocks in the list\n");
 
-            // Loop to iterate through names and prices of stocks
-            for (int i = 1; i < count; i++)
+            //Loop to iterate through names and prices of stocks
+            for (int i = 1;  i <= count; i++)
             {
                 var symbol = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[1]/span/a")).Text;
                 var price = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[2]/span")).Text;
-                
+
                 Console.WriteLine(symbol + " " + price);
             }
-
             
-            Console.WriteLine("Scraped.");
-            
+            Console.WriteLine("\nI gotchu fam.\n");
 
         }
     }
